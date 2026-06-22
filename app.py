@@ -52,8 +52,27 @@ with st.expander("ℹ️ About this tool & its limitations"):
     signal, not a verdict.
     """)
 
+st.write("**Try an example:**")
+example_col1, example_col2, example_col3 = st.columns(3)
+
+if "example_text" not in st.session_state:
+    st.session_state.example_text = ""
+
+with example_col1:
+    if st.button("📰 Fake example", use_container_width=True):
+        st.session_state.example_text = "Government secretly putting mind control chips in vaccines to control the population"
+
+with example_col2:
+    if st.button("✅ Real example", use_container_width=True):
+        st.session_state.example_text = "The unemployment rate fell to 3.7% last quarter according to labor department data"
+
+with example_col3:
+    if st.button("🎲 Ambiguous example", use_container_width=True):
+        st.session_state.example_text = "The senator claims the new policy will create thousands of jobs in the region"
+
 text_input = st.text_area(
     "Enter text:",
+    value=st.session_state.example_text,
     placeholder="e.g. Government secretly adding chemicals to drinking water to control population...",
     height=130
 )

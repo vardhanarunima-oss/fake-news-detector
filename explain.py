@@ -2,9 +2,20 @@ import os
 from dotenv import load_dotenv
 from groq import Groq
 
-load_dotenv()  # reads .env file and loads GROQ_API_KEY into environment
+load_dotenv()  # works locally if .env exists; does nothing on Streamlit Cloud
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+def get_api_key():
+    # Try Streamlit secrets first (used on Streamlit Cloud)
+    try:
+        import streamlit as st
+        if "GROQ_API_KEY" in st.secrets:
+            return st.secrets["GROQ_API_KEY"]
+    except Exception:
+        pass
+    # Fall back to .env / environment variable (used for local dev)
+    return os.getenv("GROQ_API_KEY")
+
+client = Groq(api_key=get_api_key())
 
 def get_explanation(text, verdict, confidence):
     """

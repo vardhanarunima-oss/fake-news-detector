@@ -1,0 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+streamlit
+pandas
+scikit-learn
+torch
+transformers
+groq
+python-dotenv
+joblib
+numpy
